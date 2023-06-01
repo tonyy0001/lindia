@@ -16,7 +16,6 @@
 #'
 #' @export
 #' @importFrom MASS boxcox
-
 gg_boxcox <- function(
     fitted.lm, 
     showlambda = TRUE, 
