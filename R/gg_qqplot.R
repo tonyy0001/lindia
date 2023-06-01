@@ -1,5 +1,3 @@
-
-
 #' Plot quantile-quantile plot (QQPlot) in ggplot with qqline shown.
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -11,22 +9,20 @@
 #' gg_qqplot(cars_lm)
 #' @export
 gg_qqplot <- function(fitted.lm, scale.factor = 1) {
-
-   handle_exception(fitted.lm, "gg_qqplot")
-
-   # extract residuals from lm object
-   res = residuals(fitted.lm)
-
-   # calculate slope and interncept for qqline
-   slope = (quantile(res, .75) - quantile(res, .25)) / (qnorm(.75) - qnorm(.25))
-   intercept = quantile(res,.25) - slope*qnorm(.25)
-   qq_line = data.frame(intercept = intercept, slope = slope)
-
-   # generate ggplot for qqplot
-   qq_plot <- ggplot(data = fitted.lm) +
-      stat_qq(aes(sample = res), size = scale.factor) +
-      labs(x = "Theoretical Quantile", y = "Standardized Residual") +
-      geom_abline(data = qq_line ,aes(intercept = intercept ,slope = slope), color = "indianred3", size = scale.factor) +
-      ggtitle("Normal-QQ Plot")
-   qq_plot
+  
+  handle_exception(fitted.lm, "gg_qqplot")
+  
+  # extract residuals from lm object
+  res <- residuals(fitted.lm)
+  
+  # calculate slope and interncept for qqline
+  slope <- (quantile(res, .75) - quantile(res, .25)) / (qnorm(.75) - qnorm(.25))
+  intercept <- quantile(res, .25) - slope * qnorm(.25)
+  qq_line <- data.frame(intercept = intercept, slope = slope)
+  
+  # generate ggplot for qqplot
+  ggplot(fitted.lm) +
+    stat_qq(aes(sample = res), size = scale.factor) +
+    labs(x = "Theoretical Quantile", y = "Standardized Residual", title = "Normal-QQ Plot") +
+    geom_abline(data = qq_line ,aes(intercept = intercept ,slope = slope), color = "indianred3", size = scale.factor) +
 }
