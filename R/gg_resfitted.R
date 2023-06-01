@@ -19,7 +19,7 @@ gg_resfitted <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FAL
 
    handle_exception(fitted.lm, "gg_resfitted")
 
-   #obtain residual and fitted values from fitted.lm
+   # obtain residual and fitted values from fitted.lm
    res = residuals(fitted.lm)
    fitted_values = fitted(fitted.lm)
 
@@ -28,6 +28,7 @@ gg_resfitted <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FAL
    margin_factor = 5
    margin = round(limit / margin_factor)
 
+   y_scale <- limit + margin
    df = data.frame(res, fitted_values)
    names(df) = c("residuals", "fitted_values")
    return (ggplot(data = df, aes(y = residuals, x = fitted_values)) +
@@ -35,6 +36,6 @@ gg_resfitted <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FAL
               geom_hline(yintercept = 0, linetype = "dashed", color = "indianred3", size = scale.factor)  +
               geom_smooth(method = method, se = se, size = scale.factor, color = "indianred3") +
               labs(y = "Residuals", x = "Fitted Values") +
-              ylim(-(limit + margin), limit + margin) +
+              ylim(-y_scale, y_scale) +
               ggtitle("Residual vs. Fitted Value"))
 }
