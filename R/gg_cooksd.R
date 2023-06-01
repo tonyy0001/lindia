@@ -19,8 +19,7 @@ gg_cooksd <- function(
     show.threshold <- TRUE, 
     threshold <- "convention", 
     scale.factor <- 0.5
-) 
-{
+) {
   
   handle_exception(fitted.lm, "gg_cooksd")
   
