@@ -1,5 +1,3 @@
-
-
 #' Generate histogram of residuals in ggplot.
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -15,21 +13,23 @@
 #' @export
 #'
 gg_reshist <- function(fitted.lm, bins = NULL) {
-
-   handle_exception(fitted.lm, "gg_reshist")
-
-   #obtain residual and fitted values from fitted.lm
-   res = data.frame(residuals = residuals(fitted.lm))
-
-   if (is.null(bins)) {
-      return (ggplot(data = res, aes(x = residuals)) + geom_histogram(color = "white") +
-                 ggtitle("Histogram of Residuals") +
-                 labs(x = "Residuals"))
-   }
-   else {
-      return (ggplot(data = res, aes(x = residuals)) + geom_histogram(color = "white", bins = bins) +
-                 ggtitle("Histogram of Residuals") +
-                 labs(x = "Residuals", y = "Count"))
-   }
-
+  
+  handle_exception(fitted.lm, "gg_reshist")
+  
+  #obtain residual and fitted values from fitted.lm
+  res <- tibble(residuals = fitted.lm$residuals)
+  
+  if (is.null(bins)) {
+    return(
+      ggplot(res, aes(residuals)) + 
+             geom_histogram(color = "white") +
+             labs(x = "Residuals", title = "Histogram of Residuals")
+    )
+  }
+  else {
+    return(
+      ggplot(res, aes(residuals)) + 
+        geom_histogram(color = "white", bins = bins) +
+        labs(x = "Residuals", y = "Count", title = "Histogram of Residuals"))
+  }
 }
