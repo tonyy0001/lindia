@@ -1,5 +1,3 @@
-
-
 #' Plot residual versus leverage plot in ggplot.
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -15,20 +13,23 @@
 #' gg_resleverage(cars_lm)
 #' @export
 #'
-gg_resleverage <- function(fitted.lm, method = "loess", se = FALSE, scale.factor = 1) {
-
-   handle_exception(fitted.lm, "gg_resleverage")
-
-   #obtain stardardized residual and fitted values from fitted.lm
-   std_res = rstandard(fitted.lm)
-   leverage = hatvalues(fitted.lm)
-
-   df = data.frame(leverage, std_res)
-   names(df) = c("leverage", "std_res")
-   return (ggplot(data = df, aes(x = leverage, y = std_res)) +
-              geom_point(size = scale.factor) +
-              geom_smooth(method = method, se = se, color = "indianred3", size = scale.factor) +
-              ggtitle("Residual vs. Leverage") +
-              labs(y = "Standardized Residuals", x = "Leverage"))
-
+gg_resleverage <- function(
+    fitted.lm, 
+    method = "loess", 
+    se = FALSE, 
+    scale.factor = 1
+) {
+  
+  handle_exception(fitted.lm, "gg_resleverage")
+  
+  # obtain stardardized residual and fitted values from fitted.lm
+  std_res = rstandard(fitted.lm)
+  leverage = hatvalues(fitted.lm)
+  
+  # plotting
+  df = tibble(leverage, std_res)
+  ggplot(df, aes(x = leverage, y = std_res)) +
+    geom_point(size = scale.factor) +
+    geom_smooth(method = method, se = se, color = "indianred3", linewidth = scale.factor) +
+    labs(x = "Leverage", y = "Standardized Residuals", title = "Residual vs. Leverage")
 }
