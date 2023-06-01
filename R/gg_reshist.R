@@ -18,7 +18,7 @@ gg_reshist <- function(fitted.lm, bins = NULL) {
 
    handle_exception(fitted.lm, "gg_reshist")
 
-   #obtain residual and fitted values from fitted.lm
+   # obtain residual and fitted values from fitted.lm
    res = data.frame(residuals = residuals(fitted.lm))
 
    if (is.null(bins)) {
