@@ -37,8 +37,7 @@ gg_diagnose <- function(
     scale.factor = 0.5, 
     boxcox = FALSE, 
     max.per.page = NA
-) 
-{
+) {
   
   handle_exception(fitted.lm, "gg_diagnose")
   
