@@ -1,4 +1,3 @@
-
 #' Plot scale-location (also called spread-location plot) in ggplot.
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -15,18 +14,16 @@
 #' @export
 #'
 gg_scalelocation <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FALSE) {
-
-   handle_exception(fitted.lm, "gg_scalelocation")
-
-   #obtain stardardized residual and fitted values from fitted.lm
-   fitted_values = fitted(fitted.lm)
-   std_res = rstandard(fitted.lm)
-
-   df = data.frame(std_res, fitted_values)
-   names(df) = c("sqrt(std_res)", "fitted_values")
-   return (ggplot(data = df, aes(y = std_res, x = fitted_values)) +
-              geom_point(size = scale.factor) +
-              geom_smooth(method = method, se = se, size = scale.factor, color = "indianred3") +
-              ggtitle("Scale-Location Plot") +
-              labs(x="Sqrt(Standardized Residuals)", y = "Fitted Values"))
+  
+  handle_exception(fitted.lm, "gg_scalelocation")
+  
+  # obtain stardardized residual and fitted values from fitted.lm
+  fitted_values = fitted(fitted.lm)
+  std_res = rstandard(fitted.lm)
+  
+tibble() |> 
+  ggplot(aes(fitted_values, std_res)) +
+    geom_point(size = scale.factor) +
+    geom_smooth(method = method, se = se, linewidth = scale.factor, color = "indianred3") +
+    labs(x = "Sqrt(Standardized Residuals)", y = "Fitted Values", title = "Scale-Location Plot")
 }
