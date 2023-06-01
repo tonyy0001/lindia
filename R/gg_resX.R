@@ -132,12 +132,13 @@ get_resplot <- function(var, lm_matrix, fitted.lm, scale.factor){
   x = lm_matrix[, var]
   
   # continuous variable: return scatterplot
+  y_scale <- limit + margin
   if (is.numeric(x)) {
     return(ggplot(data = fitted.lm, aes(x = lm_matrix[, var], y = fitted.lm$residuals)) +
              labs(x = var, y = "residuals", title = paste("Residual vs.", var)) +
              geom_point(size = scale.factor) +
              geom_hline(yintercept = 0, linetype = "dashed", color = "indianred3", linewidth = scale.factor) +
-             ylim(-(limit + margin), limit + margin))
+             ylim(-y_scale, y_scale))
   }
   # categorical variable: return boxplot
   else {
