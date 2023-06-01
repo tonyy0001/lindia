@@ -1,5 +1,3 @@
-
-
 #' Plot all diagnostic plots given fitted linear regression line.
 #'
 #' @param fitted.lm lm object that contains fitted regression
@@ -31,44 +29,59 @@
 #' @import ggplot2
 #' @importFrom gridExtra grid.arrange
 #' @importFrom stats fitted formula hatvalues qchisq qnorm quantile residuals rstandard
-gg_diagnose <- function(fitted.lm, theme = NULL, ncol = NA, plot.all = TRUE, 
-                        scale.factor = 0.5, boxcox = FALSE, max.per.page = NA) 
-   {
-
-   handle_exception(fitted.lm, "gg_diagnose")
-
-   plots = list()
-   # get all plots
-   plots[["residual_hist"]] <- gg_reshist(fitted.lm)
-   plots = append(plots, gg_resX(fitted.lm, plot.all = FALSE, scale.factor = scale.factor))
-   plots[["res_fitted"]] <- gg_resfitted(fitted.lm, scale.factor = scale.factor)
-   plots[["qqplot"]] <- gg_qqplot(fitted.lm, scale.factor = scale.factor)
-   plots[["scalelocation"]] <- gg_scalelocation(fitted.lm, scale.factor = scale.factor)
-   plots[["resleverage"]] <- gg_resleverage(fitted.lm, scale.factor = scale.factor)
-   plots[["cooksd"]] <- gg_cooksd(fitted.lm, scale.factor = scale.factor)
-   if (boxcox) {
-      plots[["boxcox"]] <- gg_boxcox(fitted.lm, scale.factor = scale.factor)
-   }
-
-   # apply style to all the plots
-   if (!(is.null(theme))) {
-      plots = lapply(plots, function(plot) { plot + theme })
-   }
-   
-   # handle malformed max.per.page request 
-   if (is.na(max.per.page)) {
-      max.per.page = length(plots)
-   } else if (class(max.per.page) != "numeric" || max.per.page < 1) {
-      message("Maximum plots per page invalid; switch to default")
-      max.per.page = length(plots)
-   }
-
-   # determine to plot the plots, or return a list of plots
-   if (plot.all) {
-      return(arrange.plots(plots, max.per.page, ncol))
-   }
-   else {
-      return (plots)
-   }
-
+gg_diagnose <- function(
+    fitted.lm, 
+    theme = NULL, 
+    ncol = NA, 
+    plot.all = TRUE, 
+    scale.factor = 0.5, 
+    boxcox = FALSE, 
+    max.per.page = NA
+) 
+{
+  
+  handle_exception(fitted.lm, "gg_diagnose")
+  
+  plots = list()
+  # get all plots
+  plots[["residual_hist"]] <- gg_reshist(fitted.lm)
+  plots <- append(
+    plots, 
+    gg_resX(fitted.lm, plot.all = FALSE, scale.factor = scale.factor)
+  )
+  plots[["res_fitted"]] <- gg_resfitted(fitted.lm, scale.factor = scale.factor)
+  plots[["qqplot"]] <- gg_qqplot(fitted.lm, scale.factor = scale.factor)
+  plots[["scalelocation"]] <- gg_scalelocation(
+    fitted.lm, 
+    scale.factor = scale.factor
+  )
+  plots[["resleverage"]] <- gg_resleverage(
+    fitted.lm, 
+    scale.factor = scale.factor
+  )
+  plots[["cooksd"]] <- gg_cooksd(fitted.lm, scale.factor = scale.factor)
+  if (boxcox) {
+    plots[["boxcox"]] <- gg_boxcox(fitted.lm, scale.factor = scale.factor)
+  }
+  
+  # apply style to all the plots
+  if (!(is.null(theme))) {
+    plots = lapply(plots, function(plot) {plot + theme})
+  }
+  
+  # handle malformed max.per.page request 
+  if (is.na(max.per.page)) {
+    max.per.page <- length(plots)
+  } else if (class(max.per.page) != "numeric" || max.per.page < 1) {
+    message("Maximum plots per page invalid; switch to default")
+    max.per.page <- length(plots)
+  }
+  
+  # determine to plot the plots, or return a list of plots
+  if (plot.all) {
+    return(arrange.plots(plots, max.per.page, ncol))
+  }
+  else {
+    return (plots)
+  }
 }
