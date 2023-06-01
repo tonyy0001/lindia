@@ -19,7 +19,7 @@ gg_resleverage <- function(fitted.lm, method = "loess", se = FALSE, scale.factor
 
    handle_exception(fitted.lm, "gg_resleverage")
 
-   #obtain stardardized residual and fitted values from fitted.lm
+   # obtain stardardized residual and fitted values from fitted.lm
    std_res = rstandard(fitted.lm)
    leverage = hatvalues(fitted.lm)
 
