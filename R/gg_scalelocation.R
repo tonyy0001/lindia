@@ -18,7 +18,7 @@ gg_scalelocation <- function(fitted.lm, method = 'loess', scale.factor = 1, se =
 
    handle_exception(fitted.lm, "gg_scalelocation")
 
-   #obtain stardardized residual and fitted values from fitted.lm
+   # obtain stardardized residual and fitted values from fitted.lm
    fitted_values = fitted(fitted.lm)
    std_res = rstandard(fitted.lm)
 
