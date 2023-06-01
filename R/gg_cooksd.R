@@ -55,11 +55,7 @@ gg_cooksd <- function(
   p <- ggplot(fitted.lm, aes(1:nrow(lm_matrix), .cooksd, ymin = 0, ymax = cooksd)) +
          geom_point(size = scale.factor) +
          geom_linerange(size = scale.factor) +
-         labs(
-           x = "Observation Number", 
-           y = "Cook's distance", 
-           title = "Cook's Distance Plot"
-         ) +
+         labs(x = "Observation Number", y = "Cook's distance", title = "Cook's Distance Plot") +
          ylim(0, max_cook)
   
   # labelling of potential outliers
