@@ -27,8 +27,8 @@ gg_resleverage <- function(
   leverage = hatvalues(fitted.lm)
   
   # plotting
-  df = tibble(leverage, std_res)
-  ggplot(df, aes(x = leverage, y = std_res)) +
+tibble() |>
+  ggplot(aes(leverage, std_res)) +
     geom_point(size = scale.factor) +
     geom_smooth(method = method, se = se, color = "indianred3", linewidth = scale.factor) +
     labs(x = "Leverage", y = "Standardized Residuals", title = "Residual vs. Leverage")
