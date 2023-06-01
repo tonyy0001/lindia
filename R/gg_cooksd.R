@@ -1,4 +1,3 @@
-
 #' Plot cook's distance graph
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -11,73 +10,78 @@
 #' @return A ggplot object that contains a cook's distance plot
 #' @examples library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM, data <- Cars93)
 #' gg_cooksd(cars_lm)
 #'
 #' @export
-gg_cooksd <- function(fitted.lm, label = TRUE, show.threshold = TRUE, threshold = "convention", scale.factor = 0.5) {
-
-   handle_exception(fitted.lm, "gg_cooksd")
-
-   # obtain linear model matrix
-   lm_matrix <- fortify(fitted.lm)
-   lm_matrix[, "rowname"] <- 1:nrow(lm_matrix)
-
-   # threshold for outliar
-   cooksd = lm_matrix[, ".cooksd"]
-   n = nrow(lm_matrix)
-
-   # compute the threshold value for cook's distance plot
-   if (threshold == "matlab") {
-      threshold = mean(cooksd) * 3
-   }
-   else if (threshold == "baseR") {
-      threshold = c(0.5, 1)
-   }
-   else if (threshold == "convention") {
-      threshold = c(4/n, 1)
-   }
-   else {
-      stop("invalid threshold specified for gg_cooksd")
-   }
-
-   # window limit
-   limit = max(cooksd, na.rm = T)
-   margin_factor = 5
-   margin = round(limit / margin_factor)
-   max_cook = limit + margin
-   
-   .cooksd <- NULL
-
-   base_plot <- (ggplot(fitted.lm, aes(1:nrow(lm_matrix), .cooksd, ymin = 0, ymax = cooksd)) +
-              geom_point(size = scale.factor) +
-              geom_linerange(size = scale.factor) +
-              xlab("Observation Number") +
-              ylab("Cook's distance") +
-              ggtitle("Cook's Distance Plot") +
-              ylim(0, max_cook))
-
-   # labelling of potential outliers
-   if (label) {
-      out_inds <- which(cooksd < min(threshold))
-      lm_matrix[out_inds, "rowname"] <- rep("", length(out_inds))
-      base_plot = base_plot + geom_text(label = lm_matrix[, "rowname"], nudge_x = 3, color = "indianred3")
-   }
-
-   # showing threshold for outliers
-   if (show.threshold) {
-      if (min(threshold) > max_cook) {
-         message("Cut-off for outliers too big to be shown in Cook's Distance plot.")
+gg_cooksd <- function(
+    fitted.lm, label <- TRUE, 
+    show.threshold <- TRUE, 
+    threshold <- "convention", 
+    scale.factor <- 0.5) {
+  
+  handle_exception(fitted.lm, "gg_cooksd")
+  
+  # obtain linear model matrix
+  lm_matrix <- fortify(fitted.lm)
+  lm_matrix[, "rowname"] <- 1:nrow(lm_matrix)
+  
+  # threshold for outliar
+  cooksd <- lm_matrix[, ".cooksd"]
+  n <- nrow(lm_matrix)
+  
+  # compute the threshold value for cook's distance plot
+  if (threshold == "matlab") {
+    threshold <- mean(cooksd) * 3
+  }
+  else if (threshold == "baseR") {
+    threshold <- c(0.5, 1)
+  }
+  else if (threshold == "convention") {
+    threshold <- c(4 / n, 1)
+  }
+  else {
+    stop("invalid threshold specified for gg_cooksd")
+  }
+  
+  # window limit
+  limit <- max(cooksd, na.rm = T)
+  margin_factor <- 5
+  margin <- round(limit / margin_factor)
+  max_cook <- limit + margin
+  
+  .cooksd <- NULL
+  
+  p <- ggplot(fitted.lm, aes(1:nrow(lm_matrix), .cooksd, ymin = 0, ymax = cooksd)) +
+         geom_point(size = scale.factor) +
+         geom_linerange(size = scale.factor) +
+         labs(
+           x = "Observation Number", 
+           y = "Cook's distance", 
+           title = "Cook's Distance Plot"
+         ) +
+         ylim(0, max_cook)
+  
+  # labelling of potential outliers
+  if (label) {
+    out_inds <- which(cooksd < min(threshold))
+    lm_matrix[out_inds, "rowname"] <- rep("", length(out_inds))
+    p <- p + geom_text(label = lm_matrix[, "rowname"], nudge_x = 3, color = "indianred3")
+  }
+  
+  # showing threshold for outliers
+  if (show.threshold) {
+    if (min(threshold) > max_cook) {
+      message("Cut-off for outliers too big to be shown in Cook's Distance plot.")
+    }
+    else {
+      for (i in 1:length(threshold)) {
+        if (threshold[i] > max_cook) {
+          next
+        }
+        p <- p + geom_hline(yintercept = threshold[i], linetype = "dashed", color = "indianred3", size = scale.factor)
       }
-      else {
-         for (i in 1:length(threshold)) {
-            if (threshold[i] > max_cook) {
-               next
-            }
-            base_plot = base_plot + geom_hline(yintercept = threshold[i], linetype = "dashed", color = "indianred3", size = scale.factor)
-         }
-      }
-   }
-
-   return(base_plot)
+    }
+  }
+  p
 }
