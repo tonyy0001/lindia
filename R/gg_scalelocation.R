@@ -1,4 +1,5 @@
 
+
 #' Plot scale-location (also called spread-location plot) in ggplot.
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -27,6 +28,5 @@ gg_scalelocation <- function(fitted.lm, method = 'loess', scale.factor = 1, se =
    return (ggplot(data = df, aes(y = std_res, x = fitted_values)) +
               geom_point(size = scale.factor) +
               geom_smooth(method = method, se = se, size = scale.factor, color = "indianred3") +
-              ggtitle("Scale-Location Plot") +
-              labs(x="Sqrt(Standardized Residuals)", y = "Fitted Values"))
+              labs(x="Sqrt(Standardized Residuals)", y = "Fitted Values"), title = "Scale-Location Plot")
 }
