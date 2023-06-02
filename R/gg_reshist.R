@@ -23,13 +23,11 @@ gg_reshist <- function(fitted.lm, bins = NULL) {
 
    if (is.null(bins)) {
       return (ggplot(data = res, aes(x = residuals)) + geom_histogram(color = "white") +
-                 ggtitle("Histogram of Residuals") +
-                 labs(x = "Residuals"))
+                 labs(x = "Residuals", title = "Histogram of Residuals"))
    }
    else {
       return (ggplot(data = res, aes(x = residuals)) + geom_histogram(color = "white", bins = bins) +
-                 ggtitle("Histogram of Residuals") +
-                 labs(x = "Residuals", y = "Count"))
+                 labs(x = "Residuals", y = "Count", title = "Histogram of Residuals"))
    }
 
 }
