@@ -1,4 +1,5 @@
 
+
 #' Plot boxcox graph in ggplot with suggested lambda transformation
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
