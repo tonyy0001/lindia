@@ -1,5 +1,4 @@
 
-
 #' Plot boxcox graph in ggplot with suggested lambda transformation
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -45,8 +44,7 @@ gg_boxcox <- function(fitted.lm, showlambda = TRUE, lambdaSF = 3, scale.factor =
 
    plot <- ggplot(data = boxcox_unlist) +
       geom_segment(aes(x = xstart, y = ystart, xend = xend, yend = yend), size = scale.factor) +
-      labs(x = "Lambda", y = "Log-likelihood") +
-      ggtitle("Boxcox Plot") +
+      labs(x = "Lambda", y = "Log-likelihood", title = "Boxcox Plot") +
       geom_vline(xintercept = best_lambda, linetype = "dotted", size = scale.factor/2) +
       geom_vline(xintercept = conf_lo, linetype = "dotted", size = scale.factor/2) +
       geom_vline(xintercept = conf_hi, linetype = "dotted", size = scale.factor/2) +
@@ -62,4 +60,5 @@ gg_boxcox <- function(fitted.lm, showlambda = TRUE, lambdaSF = 3, scale.factor =
    else {
       return (plot)
    }
+   
 }
