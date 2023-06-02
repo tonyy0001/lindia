@@ -1,4 +1,5 @@
 
+
 #' Plot cook's distance graph
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
