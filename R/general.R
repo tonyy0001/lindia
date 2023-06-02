@@ -11,8 +11,6 @@ strsplit_vec <- function(str, split) {
    return (unlist(strsplit(str, split))[-1])
 }
 
-
-
 #
 # n_cat - returns the index of categorical varible in given regression
 #
@@ -42,7 +40,6 @@ n_cat <- function(varnames, model_matrix) {
 get_ncol <- function(n_plots) {
    return(max(floor(sqrt(n_plots)), 1))
 }
-
 
 #
 # get_varnames - returns variable names in a lm.
