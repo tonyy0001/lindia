@@ -28,7 +28,6 @@ gg_resleverage <- function(fitted.lm, method = "loess", se = FALSE, scale.factor
    return (ggplot(data = df, aes(x = leverage, y = std_res)) +
               geom_point(size = scale.factor) +
               geom_smooth(method = method, se = se, color = "indianred3", size = scale.factor) +
-              ggtitle("Residual vs. Leverage") +
-              labs(y = "Standardized Residuals", x = "Leverage"))
+              labs(y = "Standardized Residuals", x = "Leverage", title = "Residual vs. Leverage"))
 
 }
