@@ -1,3 +1,5 @@
+
+
 #' Plot all given plots in a square matrix form.
 #'
 #' @param plots a list of plots
