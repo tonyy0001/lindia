@@ -9,12 +9,12 @@
 #' @param se logical; determines whether se belt should be plotted on plot
 #' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 1.
 #' @return A ggplot object that contains residual vs. leverage graph
-#' @examples library(MASS)
+#' @examples 
+#' library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM, Cars93)
 #' gg_resleverage(cars_lm)
 #' @export
-#'
 gg_resleverage <- function(fitted.lm, method = "loess", se = FALSE, scale.factor = 1) {
 
    handle_exception(fitted.lm, "gg_resleverage")
