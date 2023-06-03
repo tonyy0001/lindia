@@ -10,11 +10,11 @@
 #' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 0.5.
 #' @param show.threshold logical; determine whether or not threshold line is to be shown. Default to TRUE.
 #' @return A ggplot object that contains a cook's distance plot
-#' @examples library(MASS)
+#' @examples
+#' library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM, Cars93)
 #' gg_cooksd(cars_lm)
-#'
 #' @export
 gg_cooksd <- function(fitted.lm, label = TRUE, show.threshold = TRUE, threshold = "convention", scale.factor = 0.5) {
 
