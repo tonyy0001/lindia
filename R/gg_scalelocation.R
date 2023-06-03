@@ -1,18 +1,21 @@
 
 
-#' Plot scale-location (also called spread-location plot) in ggplot.
+#' Plot all given plots in a square matrix form.
 #'
-#' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
-#' @param method smoothing method of fitted line on scale-location plot.eg. "lm", "glm", "gam", "loess", "rlm". 
-#' See \url{http://docs.ggplot2.org/current/geom_smooth.html} for more details.
-#' @param se logical; determines whether se belt should be plotted on plot
-#' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 1.
-#' @return A ggplot object that contains scale-location graph
+#' @param plots a list of plots
+#' @param ncol numeric; the number of column that the arranged grid need to be.
+#' defaults to fitting all plots in square matrix
+#' @param max.per.page numeric; maximum number of plots allowed in one page.
+#' @return plots in a given list arrangeed using gridExtra
 #' @examples 
 #' library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM, Cars93)
-#' gg_scalelocation(cars_lm)
+#' # a regression with categorical variable
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM + Origin, Cars93)
+#' p <- gg_diagnose(cars_lm, plot.all = FALSE)
+#' names(p)
+#' selected.plots <- plots[-c(2, 5)]
+#' plot_all(selected.plots)
 #' @export
 gg_scalelocation <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FALSE) {
 
