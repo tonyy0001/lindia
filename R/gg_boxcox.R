@@ -12,7 +12,7 @@
 #' @examples
 #' library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM, Cars93)
 #' gg_boxcox(cars_lm)
 #' @export
 #' @importFrom MASS boxcox
