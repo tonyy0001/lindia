@@ -5,9 +5,10 @@
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
 #' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 1.
 #' @return A qqplot with fitted qqline
-#' @examples library(MASS)
+#' @examples
+#' library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM, Cars93)
 #' gg_qqplot(cars_lm)
 #' @export
 gg_qqplot <- function(fitted.lm, scale.factor = 1) {
