@@ -1,4 +1,5 @@
 
+
 #' Generate residual plot of residuals against predictors
 #'
 #' @param fitted.lm a fitted linear model (i.e. lm, glm) that contains fitted regression
@@ -19,10 +20,14 @@
 #' gg_resX(cars_lm)
 #' # customize which diagnostic plot is included by have gg_resX to return a list of plots
 #' plots <- gg_resX(cars_lm, plot.all = FALSE)
-#' names(plots)     # get name of the plots
-#' exclude_plots <- plots[-1 ]    #exclude certain residual plots
-#' include_plots <- plots[1]      # include certain residual plots
-#' plot_all(exclude_plots)       # make use of plot_all() in lindia
+#· get name of the plots
+#' names(plots)
+#' #exclude certain residual plots
+#' exclude_plots <- plots[-1]
+#' # include certain residual plots
+#' include_plots <- plots[1]
+#' # make use of plot_all() in lindia
+#' plot_all(exclude_plots)
 #' plot_all(include_plots)
 #' @export
 gg_resX <- function(fitted.lm, plot.all = TRUE, scale.factor = 0.5, max.per.page = NA, ncol = NA){
