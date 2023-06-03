@@ -9,6 +9,9 @@
 #' @param ncol specify number of columns in resulting plot per page. Default to make a square matrix of the output.
 #' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 0.5.
 #' @param max.per.page numeric; maximum number of plots allowed in one page. Parameter defaults to fit all plots on one page.
+#` @param method smoothing method of fitted line on scale-location plot.eg. "lm", "glm", "gam", "loess", "rlm". See 
+#` \url{http://docs.ggplot2.org/current/geom_smooth.html} for more details. 
+#' @param se logical; determines whether se belt should be plotted on plot
 #' @return An arranged grid of residuals against predictor values plots in ggplot.
 #' If plotall is set to FALSE,  a list of ggplot objects will be returned instead.
 #' Name of the plots are set to respective variable names.
@@ -30,7 +33,7 @@
 #' plot_all(exclude_plots)
 #' plot_all(include_plots)
 #' @export
-gg_resX <- function(fitted.lm, plot.all = TRUE, scale.factor = 0.5, max.per.page = NA, ncol = NA){
+gg_resX <- function(fitted.lm, plot.all = TRUE, scale.factor = 0.5, max.per.page = NA, ncol = NA, method = 'loess', se = FALSE){
 
    handle_exception(fitted.lm, "gg_resX")
 
@@ -136,6 +139,7 @@ get_resplot <- function(var, lm_matrix, fitted.lm, scale.factor){
    y_scale <- limit + margin
    if (is.numeric(x)) {
       return (ggplot(data = fitted.lm, aes(x = lm_matrix[, var], y = fitted.lm$residuals)) +
+                 geom_smooth(method = method, se = se, size = scale.factor, color = "indianred3") +
                  labs(x = var, y = "residuals") +
                  ggtitle(paste("Residual vs.", var)) +
                  geom_point(size = scale.factor) +
