@@ -9,11 +9,11 @@
 #' @param scale.factor numeric; scales the point size and linewidth to allow 
 #' customized viewing. Defaults to 0.5.
 #' @return A ggplot object that contains boxcox graph
-#' @examples library(MASS)
+#' @examples
+#' library(MASS)
 #' data(Cars93)
 #' cars_lm <- lm(Price ~ Passengers + Length + RPM, data = Cars93)
 #' gg_boxcox(cars_lm)
-#'
 #' @export
 #' @importFrom MASS boxcox
 gg_boxcox <- function(
