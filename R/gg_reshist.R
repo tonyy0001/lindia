@@ -6,12 +6,11 @@
 #' @examples
 #' library(MASS)
 #' data(Cars93)
-#' cars_lm <- lm(Price~ Passengers + Length + RPM, data = Cars93)
+#' cars_lm <- lm(Price~ Passengers + Length + RPM, Cars93)
 #' gg_reshist(cars_lm)
 #' # specify number of bins
 #' gg_reshist(cars_lm, bins = 20)
 #' @export
-#'
 gg_reshist <- function(fitted.lm, bins = NULL) {
   
   handle_exception(fitted.lm, "gg_reshist")
