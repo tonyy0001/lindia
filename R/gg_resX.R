@@ -8,7 +8,7 @@
 #' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 0.5.
 #' @param max.per.page numeric; maximum number of plots allowed in one page. Parameter defaults to fit all plots on one page.
 #' @param method smoothing method of fitted line on scale-location plot.eg. "lm", "glm", "gam", "loess", "rlm". See 
-#‘ \url{http://docs.ggplot2.org/current/geom_smooth.html} for more details. 
+#` \url{http://docs.ggplot2.org/current/geom_smooth.html} for more details. 
 #' @param se logical; determines whether se belt should be plotted on plot
 #' @return An arranged grid of residuals against predictor values plots in ggplot.
 #' If plotall is set to FALSE,  a list of ggplot objects will be returned instead.
