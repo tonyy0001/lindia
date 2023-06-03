@@ -13,7 +13,6 @@
 #' data(Cars93)
 #' cars_lm <- lm(Price ~ Passengers + Length + RPM, Cars93)
 #' gg_cooksd(cars_lm)
-#'
 #' @export
 gg_cooksd <- function(
     fitted.lm, label <- TRUE, 
