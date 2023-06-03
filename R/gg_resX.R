@@ -7,6 +7,9 @@
 #' @param ncol specify number of columns in resulting plot per page. Default to make a square matrix of the output.
 #' @param scale.factor numeric; scales the point size and linewidth to allow customized viewing. Defaults to 0.5.
 #' @param max.per.page numeric; maximum number of plots allowed in one page. Parameter defaults to fit all plots on one page.
+#' @param method smoothing method of fitted line on scale-location plot.eg. "lm", "glm", "gam", "loess", "rlm". See 
+#‘ \url{http://docs.ggplot2.org/current/geom_smooth.html} for more details. 
+#' @param se logical; determines whether se belt should be plotted on plot
 #' @return An arranged grid of residuals against predictor values plots in ggplot.
 #' If plotall is set to FALSE,  a list of ggplot objects will be returned instead.
 #' Name of the plots are set to respective variable names.
@@ -18,10 +21,14 @@
 #' gg_resX(cars_lm)
 #' # customize which diagnostic plot is included by have gg_resX to return a list of plots
 #' plots <- gg_resX(cars_lm, plot.all = FALSE)
-#' names(plots)     # get name of the plots
-#' exclude_plots <- plots[-1 ]    #exclude certain residual plots
-#' include_plots <- plots[1]      # include certain residual plots
-#' plot_all(exclude_plots)       # make use of plot_all() in lindia
+#· get name of the plots
+#' names(plots)
+#' #exclude certain residual plots
+#' exclude_plots <- plots[-1]
+#' # include certain residual plots
+#' include_plots <- plots[1]
+#' # make use of plot_all() in lindia
+#' plot_all(exclude_plots)
 #' plot_all(include_plots)
 #' @export
 gg_resX <- function(
@@ -29,7 +36,9 @@ gg_resX <- function(
     plot.all = TRUE, 
     scale.factor = 0.5, 
     max.per.page = NA, 
-    ncol = NA
+    ncol = NA, 
+    method = 'loess', 
+    se = FALSE
   ) {
   
   handle_exception(fitted.lm, "gg_resX")
@@ -135,6 +144,7 @@ get_resplot <- function(var, lm_matrix, fitted.lm, scale.factor){
   y_scale <- limit + margin
   if (is.numeric(x)) {
     return(ggplot(data = fitted.lm, aes(x = lm_matrix[, var], y = fitted.lm$residuals)) +
+             geom_smooth(method = method, se = se, size = scale.factor, color = "indianred3") +
              labs(x = var, y = "residuals", title = paste("Residual vs.", var)) +
              geom_point(size = scale.factor) +
              geom_hline(yintercept = 0, linetype = "dashed", color = "indianred3", linewidth = scale.factor) +
