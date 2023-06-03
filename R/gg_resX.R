@@ -16,13 +16,13 @@
 #' library(MASS)
 #' data(Cars93)
 #' # a regression with categorical variable
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM + Origin, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM + Origin, Cars93)
 #' gg_resX(cars_lm)
 #' # customize which diagnostic plot is included by have gg_resX to return a list of plots
 #' plots <- gg_resX(cars_lm, plot.all = FALSE)
-#· get name of the plots
+#' #get name of the plots
 #' names(plots)
-#' #exclude certain residual plots
+#' # exclude certain residual plots
 #' exclude_plots <- plots[-1]
 #' # include certain residual plots
 #' include_plots <- plots[1]
