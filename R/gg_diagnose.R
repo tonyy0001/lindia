@@ -16,7 +16,7 @@
 #' library(MASS)
 #' data(Cars93)
 #' # a regression with categorical variable
-#' cars_lm <- lm(Price ~ Passengers + Length + RPM + Origin, data = Cars93)
+#' cars_lm <- lm(Price ~ Passengers + Length + RPM + Origin, Cars93)
 #' gg_diagnose(cars_lm)
 #' # customize which diagnostic plot is included
 #' plots <- gg_diagnose(cars_lm, plot.all = FALSE)
