@@ -13,15 +13,14 @@
 #' gg_scalelocation(cars_lm)
 #' @export
 gg_scalelocation <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FALSE) {
-  
   handle_exception(fitted.lm, "gg_scalelocation")
   
   # obtain stardardized residual and fitted values from fitted.lm
   fitted_values = fitted(fitted.lm)
   std_res = rstandard(fitted.lm)
   
-tibble() |> 
-  ggplot(aes(fitted_values, std_res)) +
+  tibble() |> 
+    ggplot(aes(fitted_values, std_res)) +
     geom_point(size = scale.factor) +
     geom_smooth(method = method, se = se, linewidth = scale.factor, color = "indianred3") +
     labs(x = "Sqrt(Standardized Residuals)", y = "Fitted Values", title = "Scale-Location Plot")
