@@ -10,7 +10,6 @@
 #' gg_qqplot(cars_lm)
 #' @export
 gg_qqplot <- function(fitted.lm, scale.factor = 1) {
-  
   handle_exception(fitted.lm, "gg_qqplot")
   
   # extract residuals from lm object
