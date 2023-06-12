@@ -13,7 +13,6 @@
 #' gg_resfitted(cars_lm)
 #' @export
 gg_resfitted <- function(fitted.lm, method = 'loess', scale.factor = 1, se = FALSE) {
-
    handle_exception(fitted.lm, "gg_resfitted")
 
    # obtain residual and fitted values from fitted.lm
