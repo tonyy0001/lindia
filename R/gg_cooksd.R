@@ -20,7 +20,6 @@ gg_cooksd <- function(
     threshold <- "convention", 
     scale.factor <- 0.5
 ) {
-  
   handle_exception(fitted.lm, "gg_cooksd")
   
   # obtain linear model matrix
@@ -50,9 +49,7 @@ gg_cooksd <- function(
   margin_factor <- 5
   margin <- round(limit / margin_factor)
   max_cook <- limit + margin
-  
   .cooksd <- NULL
-  
   p <- ggplot(fitted.lm, aes(1:nrow(lm_matrix), .cooksd, ymin = 0, ymax = cooksd)) +
          geom_point(size = scale.factor) +
          geom_linerange(size = scale.factor) +
