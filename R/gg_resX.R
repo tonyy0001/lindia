@@ -40,7 +40,6 @@ gg_resX <- function(
     method = 'loess', 
     se = FALSE
   ) {
-  
   handle_exception(fitted.lm, "gg_resX")
   
   # extract model matrix
@@ -55,7 +54,6 @@ gg_resX <- function(
   
   # number of plots so far
   n = 1
-  
   for (i in 1:length(var_names)){
     var = var_names[i]
     this_plot <- get_resplot(var, lm_matrix, fitted.lm, scale.factor)
@@ -86,10 +84,8 @@ gg_resX <- function(
   }
 }
 
-#
-# arrange.plots arranges plot to pages according to max.per.page
-#
-arrange.plots <- function(plots, plots.per.page, ncol) {
+  # arrange.plots arranges plot to pages according to max.per.page
+  arrange.plots <- function(plots, plots.per.page, ncol) {
   
   # get total number of plots
   len <- length(plots)
@@ -104,7 +100,6 @@ arrange.plots <- function(plots, plots.per.page, ncol) {
   
   # get pages needed
   pages <- ceiling(len / plots.per.page)
-  
   for (i in 1:pages) {
     start = (i - 1) * (plots.per.page) + 1
     end = min(i * plots.per.page, len)
@@ -122,8 +117,8 @@ arrange.plots <- function(plots, plots.per.page, ncol) {
 #
 # input : var - variable name string the residual plot is about
 #         lm_matrix - model matrix of the fitted lm
-#        fitted.lm : fitted lm
-#        data : original dataset (optional)
+#         fitted.lm - fitted lm
+#         data - original dataset (optional)
 #
 # output : a ggplot object of var vs. residual of fitted lm
 #
@@ -135,7 +130,8 @@ get_resplot <- function(var, lm_matrix, fitted.lm, scale.factor){
   margin_factor = 5
   margin = round(limit / margin_factor)
   
-  n_var_threshold = 4    # if more number of variables than threshold, tilt label to 45 degrees
+  # if more number of variables than threshold, tilt label to 45 degrees
+  n_var_threshold = 4 
   
   # handle categorical and continuous variables
   x = lm_matrix[, var]
@@ -150,6 +146,7 @@ get_resplot <- function(var, lm_matrix, fitted.lm, scale.factor){
              geom_hline(yintercept = 0, linetype = "dashed", color = "indianred3", linewidth = scale.factor) +
              ylim(-y_scale, y_scale))
   }
+    
   # categorical variable: return boxplot
   else {
     p <- ggplot(tibble(lm_matrix), aes(lm_matrix[, var], fitted.lm$residuals)) +
