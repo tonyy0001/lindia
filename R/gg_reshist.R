@@ -12,7 +12,6 @@
 #' gg_reshist(cars_lm, bins = 20)
 #' @export
 gg_reshist <- function(fitted.lm, bins = NULL) {
-  
   handle_exception(fitted.lm, "gg_reshist")
   
   #obtain residual and fitted values from fitted.lm
