@@ -3,7 +3,6 @@
 # exception handling function for malformed input in lindia
 #
 handle_exception <- function(input, function_name) {
-  
   type = class(input)
   
   # exception handling: input not lm object
