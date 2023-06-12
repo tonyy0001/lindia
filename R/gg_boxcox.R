@@ -21,7 +21,6 @@ gg_boxcox <- function(
     showlambda = TRUE, 
     lambdaSF = 3, 
     scale.factor = 0.5) {
-  
   handle_exception(fitted.lm, "gg_boxcox")
   
   # compute boxcox graph points
@@ -50,7 +49,6 @@ gg_boxcox <- function(
     round(lambdaSF)
   conf_hi <- max(accept_range) |> 
     round(lambdaSF)
-  
   p <- ggplot(boxcox_unlist) +
     geom_segment(aes(x = xstart, y = ystart, xend = xend, yend = yend), size = scale.factor) +
     labs(x = "Lambda", y = "Log-likelihood", title = "Boxcox Plot") +
