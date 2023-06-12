@@ -18,7 +18,6 @@ gg_resleverage <- function(
     se = FALSE, 
     scale.factor = 1
 ) {
-  
   handle_exception(fitted.lm, "gg_resleverage")
   
   # obtain stardardized residual and fitted values from fitted.lm
@@ -26,8 +25,8 @@ gg_resleverage <- function(
   leverage = hatvalues(fitted.lm)
   
   # plotting
-tibble() |>
-  ggplot(aes(leverage, std_res)) +
+  tibble() |>
+    ggplot(aes(leverage, std_res)) +
     geom_point(size = scale.factor) +
     geom_smooth(method = method, se = se, color = "indianred3", linewidth = scale.factor) +
     labs(x = "Leverage", y = "Standardized Residuals", title = "Residual vs. Leverage")
