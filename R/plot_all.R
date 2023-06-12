@@ -16,7 +16,6 @@
 #' plot_all(selected.plots)
 #' @export
 plot_all <- function(plots, ncol = NA, max.per.page = NA) {
-  
   if (class(plots) != "list") {
     stop("plot_all() doesn't know how to handle non-list input")
   }
