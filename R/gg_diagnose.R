@@ -42,10 +42,9 @@ gg_diagnose <- function(
     boxcox = FALSE, 
     max.per.page = NA
 ) {
-  
   handle_exception(fitted.lm, "gg_diagnose")
-  
   plots = list()
+    
   # get all plots
   plots[["residual_hist"]] <- gg_reshist(fitted.lm)
   plots <- append(
